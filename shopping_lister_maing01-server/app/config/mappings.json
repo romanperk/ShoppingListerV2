@@ -26,88 +26,58 @@
         "httpMethod": "GET",
         "type": "UVE"
       },
-      "helloWorld": {
-        "realization": "api/controllers/JokeController.helloWorld",
-        "httpMethod": "GET",
-        "type": "CMD"
-      },
-      "joke/create": {
-        "realization": "api/controllers/JokeController.create",
-        "httpMethod": "POST",
-        "type": "CMD"
-      },
       "shoppingListSumm/list": {
         "realization": "api/controllers/ShoppingListController.list",
         "httpMethod": "GET",
         "type": "CMD"
       },
-      "shoppingListSumm/givenList/:id/item/list": {
-        "realization": "api/controllers/ShoppingListController.listItems",
+      "shoppingListSumm/givenList/get": {
+        "realization": "api/controllers/ShoppingListController.getList",
         "httpMethod": "GET",
         "type": "CMD"
       },
-      "shoppingListSumm/givenList/create": {
+      "shoppingListSumm/givenList/createList": {
         "realization": "api/controllers/ShoppingListController.createList",
         "httpMethod": "POST",
         "type": "CMD"
       },
-      "shoppingListSumm/givenList/:id/delete": {
+      "shoppingListSumm/givenList/delete": {
         "realization": "api/controllers/ShoppingListController.deleteList",
         "httpMethod": "DELETE",
         "type": "CMD"
       },
-      "shoppingListSumm/givenList/:id/name/update": {
+      "shoppingListSumm/givenList/name/update": {
         "realization": "api/controllers/ShoppingListController.updateListName",
         "httpMethod": "PUT",
         "type": "CMD"
       },
-      "shoppingListSumm/givenList/:id/archived/update": {
+      "shoppingListSumm/givenList/archived/update": {
         "realization": "api/controllers/ShoppingListController.archiveList",
         "httpMethod": "PUT",
         "type": "CMD"
       },
-      "shoppingListSumm/archived/list": {
-        "realization": "api/controllers/ShoppingListController.listArchived",
-        "httpMethod": "GET",
-        "type": "CMD"
-      },
-      "shoppingListSumm/givenList/:id/item/create": {
+      "shoppingListSumm/givenList/item/create": {
         "realization": "api/controllers/ShoppingListController.createItem",
         "httpMethod": "POST",
         "type": "CMD"
       },
-      "shoppingListSumm/givenList/:id/item/:id/delete": {
+      "shoppingListSumm/givenList/item/delete": {
         "realization": "api/controllers/ShoppingListController.deleteItem",
         "httpMethod": "DELETE",
         "type": "CMD"
       },
-      "shoppingListSumm/givenList/:id/item/:id/resolved/update": {
+      "shoppingListSumm/givenList/item/resolved/update": {
         "realization": "api/controllers/ShoppingListController.resolveItem",
         "httpMethod": "PUT",
         "type": "CMD"
       },
-      "shoppingListSumm/givenList/:id/resolved/list": {
-        "realization": "api/controllers/ShoppingListController.listResolvedItems",
-        "httpMethod": "GET",
-        "type": "CMD"
-      },
-      "shoppingListSumm/givenList/:id/authorizedUsers/list": {
-        "realization": "api/controllers/ShoppingListController.listAuthorizedUsers",
-        "httpMethod": "GET",
-        "type": "CMD"
-      },
-      "shoppingListSumm/givenList/:id/authorizedUsers/create": {
+      "shoppingListSumm/givenList/authorizedUsers/create": {
         "realization": "api/controllers/ShoppingListController.createAuthorizedUser",
         "httpMethod": "POST",
         "type": "CMD"
       },
-      "shoppingListSumm/givenList/:id/authorizedUsers/:id/delete": {
+      "shoppingListSumm/givenList/authorizedUsers/delete": {
         "realization": "api/controllers/ShoppingListController.deleteAuthorizedUser",
-        "httpMethod": "DELETE",
-        "type": "CMD"
-      },
-      "shoppingListSumm/givenList/:id/authorizedUsers/:myID/delete": {
-        "realization": "api/controllers/ShoppingListController.deleteSelfFromAuthorizedUsers",
         "httpMethod": "DELETE",
         "type": "CMD"
       }

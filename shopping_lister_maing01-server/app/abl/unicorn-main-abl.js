@@ -6,7 +6,7 @@ const { Profile, AppClientTokenService, UuAppWorkspace, UuAppWorkspaceError } = 
 const { UriBuilder } = require("uu_appg01_server").Uri;
 const { LoggerFactory } = require("uu_appg01_server").Logging;
 const { AppClient } = require("uu_appg01_server");
-const Errors = require("../api/errors/unicorn-main-error.js");
+const Errors = require("../api/errors/app-main-error.js");
 
 const WARNINGS = {
   initUnsupportedKeys: {
@@ -52,8 +52,8 @@ class UnicornMainAbl {
       const uuBtBaseUri = uuBtUriBuilder.toUri().getBaseUri();
 
       const createAwscDtoIn = {
-        name: "UuUnicorn",
-        typeCode: "uu-unicorn-maing01",
+        name: "ShoppingLister",
+        typeCode: "shopping-lister-maing01",
         location: location,
         uuAppWorkspaceUri: baseUri,
       };

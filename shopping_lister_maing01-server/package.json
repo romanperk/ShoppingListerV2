@@ -1,12 +1,14 @@
 {
-  "name": "uu_unicorn_maing01-server",
+  "name": "shopping_lister_maing01-server",
   "version": "0.1.0",
   "description": "",
   "license": "License Commercial",
   "spec": "nodejs-app; uu_appg01_devkit@5.15.4",
   "dependencies": {
+    "mongodb": "^6.3.0",
     "uu_appg01_server": "^5.18.0",
-    "uu_apprepresentationg01": "^2.2.0"
+    "uu_apprepresentationg01": "^2.2.0",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "uu_appg01_devkit": "^5.15.4",

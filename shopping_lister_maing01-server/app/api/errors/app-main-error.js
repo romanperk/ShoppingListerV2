@@ -1,5 +1,5 @@
 "use strict";
-const UnicornMainUseCaseError = require("./unicorn-main-use-case-error.js");
+const UnicornMainUseCaseError = require("./app-main-use-case-error.js");
 
 const Init = {
   UC_CODE: `${UnicornMainUseCaseError.ERROR_PREFIX}init/`,

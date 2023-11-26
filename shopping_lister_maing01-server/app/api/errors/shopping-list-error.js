@@ -1,5 +1,5 @@
 "use strict";
-const ShoppingListMainUseCaseError = require("./shopping-list-main-use-case-error");
+const ShoppingListMainUseCaseError = require("./app-main-use-case-error.js");
 
 const List = {
   UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingListSumm/list/`,
@@ -19,30 +19,17 @@ const List = {
       this.message = "Zobrazení přehledu nákupních seznamů selhalo.";
     }
   },
-};
-
-const ListItem = {
-  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingList/singleList/:id/item/list/`,
-
-  InvalidDtoIn: class extends ShoppingListMainUseCaseError {
+  UserNotAuthorized: class extends ShoppingListMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${ListItem.UC_CODE}invalidDtoIn`;
-      this.message = "Vstupní data nejsou validní.";
-    }
-  },
-
-  ShoppingListDaoListItemFailed: class extends ShoppingListMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${ListItem.UC_CODE}shoppingListDaoListItemFailed`;
-      this.message = "Zobrazení položek nákupního seznamu selhalo.";
+      this.code = `${List.UC_CODE}userNotAuthorized`;
+      this.message = "Uživatel není autorizovaný.";
     }
   },
 };
 
 const CreateList = {
-  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingList/singleList/create/`,
+  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingListSumm/givenList/create/`,
 
   InvalidDtoIn: class extends ShoppingListMainUseCaseError {
     constructor() {
@@ -62,7 +49,7 @@ const CreateList = {
 };
 
 const DeleteList = {
-  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingList/singleList/:id/delete/`,
+  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingListSumm/givenList/delete/`,
 
   InvalidDtoIn: class extends ShoppingListMainUseCaseError {
     constructor() {
@@ -79,10 +66,26 @@ const DeleteList = {
       this.message = "Smazání nákupního seznamu selhalo.";
     }
   },
+
+  UserNotAuthorized: class extends ShoppingListMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${List.UC_CODE}userNotAuthorized`;
+      this.message = "Uživatel není autorizovaný.";
+    }
+  },
+
+  ListDoesNotExist: class extends ShoppingListMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${DeleteList.UC_CODE}listDoesNotExist`;
+      this.message = "Zvolený nákupní seznam ke smazání neexistuje.";
+    }
+  },
 };
 
 const UpdateListName = {
-  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingList/singleList/:id/name/update/`,
+  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingListSumm/givenList/name/update/`,
 
   InvalidDtoIn: class extends ShoppingListMainUseCaseError {
     constructor() {
@@ -99,10 +102,18 @@ const UpdateListName = {
       this.message = "Upravení názbu nákupního seznamu selhalo.";
     }
   },
+
+  UserNotAuthorized: class extends ShoppingListMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${List.UC_CODE}userNotAuthorized`;
+      this.message = "Uživatel není autorizovaný.";
+    }
+  },
 };
 
 const ArchiveList = {
-  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingList/singleList/:id/archived/update/`,
+  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingListSumm/givenList/archived/update/`,
 
   InvalidDtoIn: class extends ShoppingListMainUseCaseError {
     constructor() {
@@ -119,30 +130,18 @@ const ArchiveList = {
       this.message = "Archivování nákupního seznamu selhalo.";
     }
   },
-};
 
-const ListArchived = {
-  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingList/archived/list/`,
-
-  InvalidDtoIn: class extends ShoppingListMainUseCaseError {
+  UserNotAuthorized: class extends ShoppingListMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${ListArchived.UC_CODE}invalidDtoIn`;
-      this.message = "Vstupní data nejsou validní.";
-    }
-  },
-
-  ShoppingListDaoListArchivedFailed: class extends ShoppingListMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${ListArchived.UC_CODE}shoppingListDaoListArchivedFailed`;
-      this.message = "Zobrazení přehledu archivovaných nákupních seznamů selhalo.";
+      this.code = `${List.UC_CODE}userNotAuthorized`;
+      this.message = "Uživatel není autorizovaný.";
     }
   },
 };
 
 const CreateItem = {
-  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingList/singleList/:id/item/create/`,
+  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingListSumm/givenList/item/create/`,
 
   InvalidDtoIn: class extends ShoppingListMainUseCaseError {
     constructor() {
@@ -159,10 +158,18 @@ const CreateItem = {
       this.message = "Vytvoření položky v nákupním seznamu selhalo.";
     }
   },
+
+  UserNotAuthorized: class extends ShoppingListMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${List.UC_CODE}userNotAuthorized`;
+      this.message = "Uživatel není autorizovaný.";
+    }
+  },
 };
 
 const DeleteItem = {
-  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingList/singleList/:id/item/:id/delete/`,
+  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingListSumm/givenList/item/delete/`,
 
   InvalidDtoIn: class extends ShoppingListMainUseCaseError {
     constructor() {
@@ -179,10 +186,18 @@ const DeleteItem = {
       this.message = "Smazání položky v nákupním seznamu selhalo.";
     }
   },
+
+  UserNotAuthorized: class extends ShoppingListMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${List.UC_CODE}userNotAuthorized`;
+      this.message = "Uživatel není autorizovaný.";
+    }
+  },
 };
 
 const ResolveItem = {
-  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingList/singleList/:id/item/:id/resolved/update/`,
+  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingListSumm/givenList/item/resolved/update/`,
 
   InvalidDtoIn: class extends ShoppingListMainUseCaseError {
     constructor() {
@@ -199,50 +214,18 @@ const ResolveItem = {
       this.message = "Vyřešení položky v nákupním seznamu selhalo.";
     }
   },
-};
 
-const ListResolvedItems = {
-  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingList/singleList/:id/resolved/list/`,
-
-  InvalidDtoIn: class extends ShoppingListMainUseCaseError {
+  UserNotAuthorized: class extends ShoppingListMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${ListResolvedItems.UC_CODE}invalidDtoIn`;
-      this.message = "Vstupní data nejsou validní.";
-    }
-  },
-
-  ShoppingListDaoListResolvedItemsFailed: class extends ShoppingListMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${ListResolvedItems.UC_CODE}shoppingListDaoListResolvedItemsFailed`;
-      this.message = "Zobrazení vyřešených položek v nákupním seznamu selhalo.";
-    }
-  },
-};
-
-const ListAuthorizedUsers = {
-  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingList/singleList/:id/authorizedUsers/list/`,
-
-  InvalidDtoIn: class extends ShoppingListMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${ListAuthorizedUsers.UC_CODE}invalidDtoIn`;
-      this.message = "Vstupní data nejsou validní.";
-    }
-  },
-
-  ShoppingListDaoListAuthorizedUsersFailed: class extends ShoppingListMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${ListAuthorizedUsers.UC_CODE}shoppingListDaoListAuthorizedUsersFailed`;
-      this.message = "Zobrazení uživatelů v nákupním seznamu selhalo.";
+      this.code = `${List.UC_CODE}userNotAuthorized`;
+      this.message = "Uživatel není autorizovaný.";
     }
   },
 };
 
 const CreateAuthorizedUser = {
-  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingList/singleList/:id/authorizedUsers/create/`,
+  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingListSumm/givenList/authorizedUsers/create/`,
 
   InvalidDtoIn: class extends ShoppingListMainUseCaseError {
     constructor() {
@@ -259,10 +242,18 @@ const CreateAuthorizedUser = {
       this.message = "Přidání člena do seznamu uživatelů selhalo.";
     }
   },
+
+  UserNotAuthorized: class extends ShoppingListMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${List.UC_CODE}userNotAuthorized`;
+      this.message = "Uživatel není autorizovaný.";
+    }
+  },
 };
 
 const DeleteAuthorizedUser = {
-  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingList/singleList/:id/authorizedUsers/:id/delete/`,
+  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingListSumm/givenList/authorizedUsers/delete/`,
 
   InvalidDtoIn: class extends ShoppingListMainUseCaseError {
     constructor() {
@@ -279,42 +270,25 @@ const DeleteAuthorizedUser = {
       this.message = "Odebrání člena ze seznamu uživatelů selhalo.";
     }
   },
-};
 
-const DeleteSelfFromAuthorizedUsers = {
-  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingList/singleList/:id/authorizedUsers/:myID/delete/`,
-
-  InvalidDtoIn: class extends ShoppingListMainUseCaseError {
+  UserNotAuthorized: class extends ShoppingListMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${DeleteSelfFromAuthorizedUsers.UC_CODE}invalidDtoIn`;
-      this.message = "Vstupní data nejsou validní.";
-    }
-  },
-
-  ShoppingListDaoDeleteSelfFromAuthorizedUsersFailed: class extends ShoppingListMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${DeleteSelfFromAuthorizedUsers.UC_CODE}shoppingListDaoDeleteSelfFromAuthorizedUsersFailed`;
-      this.message = "Odebrání sebe sama ze seznamu uživatelů selhalo.";
+      this.code = `${List.UC_CODE}userNotAuthorized`;
+      this.message = "Uživatel není autorizovaný.";
     }
   },
 };
 
 module.exports = {
   List,
-  ListItem,
   CreateList,
   DeleteList,
   UpdateListName,
   ArchiveList,
-  ListArchived,
   CreateItem,
   DeleteItem,
   ResolveItem,
-  ListResolvedItems,
-  ListAuthorizedUsers,
   CreateAuthorizedUser,
   DeleteAuthorizedUser,
-  DeleteSelfFromAuthorizedUsers,
 };

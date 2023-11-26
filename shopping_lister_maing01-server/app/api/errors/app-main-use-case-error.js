@@ -3,7 +3,7 @@ const { UseCaseError } = require("uu_appg01_server").AppServer;
 
 class UnicornMainUseCaseError extends UseCaseError {
   static get ERROR_PREFIX() {
-    return "uu-unicorn-main/";
+    return "shopping-lister-main/";
   }
 
   constructor(dtoOut, paramMap = {}, cause = null) {
