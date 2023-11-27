@@ -261,7 +261,7 @@ class ShoppingListAbl {
       // Add authorization error to uuAppErrorMap
       throw new Errors.CreateItem.UserNotAuthorized({ uuAppErrorMap });
     }
-    list.shoppingListItems.push({
+    list.items.push({
       id: uuidv4(),
       itemName: dtoIn.itemName,
       resolved: false,
@@ -298,7 +298,7 @@ class ShoppingListAbl {
       throw new Errors.DeleteItem.UserNotAuthorized({ uuAppErrorMap });
     }
 
-    list.shoppingListItems = list.shoppingListItems.filter((item) => item.id !== dtoIn.itemId);
+    list.items = list.items.filter((item) => item.id !== dtoIn.itemId);
     let updatedList = await this.dao.update(list);
 
     return { list: updatedList, uuAppErrorMap };
@@ -329,7 +329,7 @@ class ShoppingListAbl {
     }
 
     // Find the item and mark it as resolved
-    let item = list.shoppingListItems.find((item) => item.id === dtoIn.itemId);
+    let item = list.items.find((item) => item.id === dtoIn.itemId);
     if (item) {
       item.resolved = true;
     } else {
