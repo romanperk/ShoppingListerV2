@@ -1,5 +1,15 @@
 {
     "list": [
+        {   "id": "cd8f0b48",
+            "name": "Kaufland",
+            "memberList": ["60639f0e", "8ef9a8e0"],
+            "itemList": [
+              { "id": "d1bce180", "name": "Cukr" },
+              { "id": "d1bce48c", "name": "Rohlíky (6)" },
+              { "id": "d1bce5d6", "name": "Mouka", "checked": true }
+            ],
+            "owner": "60639c3e"
+          },
         {
             "name": "Kaufland",
             "ownerId": "0-0",

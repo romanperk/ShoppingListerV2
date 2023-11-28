@@ -1,37 +1,21 @@
-import { Client } from "uu_appg01";
-import Calls from "../src/calls";
+import Calls from "../src/calls.js";
 
-const appAssetsBaseUri = (
+let appAssetsBaseUri =
   document.baseURI ||
   (document.querySelector("base") || {}).href ||
-  location.protocol + "//" + location.host + location.pathname
-).replace(/^(.*)\/.*$/, "$1/"); // strip what's after last slash
+  location.protocol + "//" + location.host + location.pathname;
+if (!appAssetsBaseUri.endsWith("/")) {
+  appAssetsBaseUri = appAssetsBaseUri.slice(0, appAssetsBaseUri.lastIndexOf("/")); // strip what's after last slash
+}
 
-const mockBaseUri = (process.env.MOCK_DATA_BASE_URI || appAssetsBaseUri) + "mock/data/";
-const originalGet = Client.get;
+Calls.call = (method, url, dtoIn) => {
+  let mockUrl = (process.env.MOCK_DATA_BASE_URI || appAssetsBaseUri) + "mock/data/" + url + ".json";
 
-Client.get = async (url, dtoIn, clientOpts) => {
-  if (url.includes("sys/uuAppWorkspace/load")) {
-    const mockUrl = mockBaseUri + "sys/uuAppWorkspace/load.json";
-    const response = await fetch(mockUrl);
-    return { ...response, data: await response.json() };
-  } else {
-    return originalGet(url, dtoIn, clientOpts);
-  }
-};
-
-Calls.call = async (...args) => {
-    const url = args.at(1);
-
-  // if (url === "uu-app-binarystore/getBinaryData") {
-  //   const response = await fetch("http://placekitten.com/600/600");
-  //   return await response.blob();
-  // } else {
-    const mockUrl = mockBaseUri + url + ".json";
-    console.log(mockBaseUri)
-    const response = await fetch("http://localhost:1234/shoppingLister/0/public/0.1.0/mock/data/shoppingList/shopping-list-list.json");
+  let responsePromise = (async () => {
+    let response = await fetch(mockUrl);
     return await response.json();
-  // }
+  })();
+  return dtoIn != null ? responsePromise.then(dtoIn.done, dtoIn.fail) : responsePromise;
 };
 
 Calls.getCommandUri = (useCase) => {
