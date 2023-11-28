@@ -14,9 +14,9 @@ const WARNINGS = {
   },
 };
 
-const logger = LoggerFactory.get("UnicornMainAbl");
+const logger = LoggerFactory.get("AppMainAbl");
 
-class UnicornMainAbl {
+class AppMainAbl {
   constructor() {
     this.validator = Validator.load();
   }
@@ -62,7 +62,7 @@ class UnicornMainAbl {
       const appClientToken = await AppClientTokenService.createToken(uri, uuBtBaseUri);
       const callOpts = AppClientTokenService.setToken({ session }, appClientToken);
 
-      // TODO HDS
+      // HDS 3
       let awscId;
       try {
         const awscDtoOut = await AppClient.post(awscCreateUri, createAwscDtoIn, callOpts);
@@ -88,7 +88,7 @@ class UnicornMainAbl {
       );
     }
 
-    // HDS 3
+    // HDS 4
     if (dtoIn.uuAppProfileAuthorities) {
       try {
         await Profile.set(awid, "Authorities", dtoIn.uuAppProfileAuthorities);
@@ -100,10 +100,7 @@ class UnicornMainAbl {
         throw e;
       }
     }
-
-    // HDS 4 - HDS N
-    // TODO Implement according to application needs...
-
+    
     // HDS N+1
     const workspace = UuAppWorkspace.get(awid);
 
@@ -116,37 +113,14 @@ class UnicornMainAbl {
   async load(uri, session, uuAppErrorMap = {}) {
     // HDS 1
     const dtoOut = await UuAppWorkspace.load(uri, session, uuAppErrorMap);
-
-    // TODO Implement according to application needs...
-    // if (dtoOut.sysData.awidData.sysState !== UuAppWorkspace.SYS_STATES.CREATED &&
-    //    dtoOut.sysData.awidData.sysState !== UuAppWorkspace.SYS_STATES.ASSIGNED
-    // ) {
-    //   const awid = uri.getAwid();
-    //   const appData = await this.dao.get(awid);
-    //   dtoOut.data = { ...appData, relatedObjectsMap: {} };
-    // }
-
-    // HDS 2
     return dtoOut;
   }
 
   async loadBasicData(uri, session, uuAppErrorMap = {}) {
     // HDS 1
     const dtoOut = await UuAppWorkspace.loadBasicData(uri, session, uuAppErrorMap);
-
-    // TODO Implement according to application needs...
-    // const awid = uri.getAwid();
-    // const workspace = await UuAppWorkspace.get(awid);
-    // if (workspace.sysState !== UuAppWorkspace.SYS_STATES.CREATED &&
-    //    workspace.sysState !== UuAppWorkspace.SYS_STATES.ASSIGNED
-    // ) {
-    //   const appData = await this.dao.get(awid);
-    //   dtoOut.data = { ...appData, relatedObjectsMap: {} };
-    // }
-
-    // HDS 2
     return dtoOut;
   }
 }
 
-module.exports = new UnicornMainAbl();
+module.exports = new AppMainAbl();

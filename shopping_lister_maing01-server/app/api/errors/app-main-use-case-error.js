@@ -1,7 +1,7 @@
 "use strict";
 const { UseCaseError } = require("uu_appg01_server").AppServer;
 
-class UnicornMainUseCaseError extends UseCaseError {
+class AppMainUseCaseError extends UseCaseError {
   static get ERROR_PREFIX() {
     return "shopping-lister-main/";
   }
@@ -15,4 +15,4 @@ class UnicornMainUseCaseError extends UseCaseError {
   }
 }
 
-module.exports = UnicornMainUseCaseError;
+module.exports = AppMainUseCaseError;

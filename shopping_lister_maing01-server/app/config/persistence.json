@@ -5,7 +5,7 @@
       "realization": "MongoDB",
       "schemaMap": {
         "unicornMain": {
-          "realization": "dao/UnicornMainMongo"
+          "realization": "dao/AppMainMongo"
         },
         "shopping-list": {
           "realization": "dao/ShoppingListMongo"

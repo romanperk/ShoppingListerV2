@@ -15,7 +15,7 @@ class ShoppingListAbl {
   async list(awid, dtoIn, session) {
     let uuAppErrorMap = {};
 
-    // Validation of dtoIn
+    // Validace dtoIn
     const validationResult = this.validator.validate("shoppingListsListDtoInType", dtoIn);
     uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
@@ -25,21 +25,21 @@ class ShoppingListAbl {
       Errors.List.InvalidDtoIn
     );
 
-    // Get uuIdentity information
+    // Získání uuIdentity
     const uuIdentity = session.getIdentity().getUuIdentity();
     const uuIdentityName = session.getIdentity().getName();
 
-    // Retrieve all lists
+    // Získání všech NS
     const allLists = await this.dao.list(awid);
 
-    // Filter lists where the user is authorized
+    // Filtrování seznamů, kde je uživatel autorizovaný
     const authorizedLists = allLists.itemList.filter((list) =>
       list.authorizedUsers.some((user) => user.userID === uuIdentity)
     );
 
-    // Check if there are no lists where the user is authorized
+    // Kontrola, jestli nejsou NS, kde uživatel není autorizovaný ani u jednoho
     if (authorizedLists.length === 0) {
-      // Handle the case where no authorized lists are found
+      // Řešení, když uživatel není autorizovaný ani u jednoho NS
       throw new Errors.List.UserNotAuthorized({ uuAppErrorMap });
     }
 
@@ -50,7 +50,7 @@ class ShoppingListAbl {
   async getList(awid, dtoIn, session, authorizationResult) {
     let uuAppErrorMap = {};
 
-    // Validation of dtoIn
+    // Validace dtoIn
     const validationResult = this.validator.validate("shoppingListGetDtoInType", dtoIn);
     uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
@@ -60,17 +60,17 @@ class ShoppingListAbl {
       Errors.List.InvalidDtoIn
     );
 
-    // Set visibility
+    // Nastavení viditelnosti
     const visibility = authorizationResult.getAuthorizedProfiles().includes("Executives");
     const uuIdentity = session.getIdentity().getUuIdentity();
     const uuIdentityName = session.getIdentity().getName();
 
     let list = await this.dao.get(dtoIn.id);
 
-    // Check if the user is authorized to view the list
+    // Kontrola, jestli je uživatel autorizovaný si NS zobrazit
     let isAuthorized = list.authorizedUsers.some((user) => user.userID === uuIdentity);
     if (!isAuthorized) {
-      // Add authorization error to uuAppErrorMap
+      // Přidání chyby autorizace do uuAppErrorMap
       throw new Errors.List.UserNotAuthorized({ uuAppErrorMap });
     }
 
@@ -87,7 +87,7 @@ class ShoppingListAbl {
   async createList(awid, dtoIn, session, authorizationResult) {
     let uuAppErrorMap = {};
 
-    // Validation of dtoIn
+    // Validace dtoIn
     const validationResult = this.validator.validate("shoppingListCreateDtoInType", dtoIn);
     uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
@@ -97,27 +97,27 @@ class ShoppingListAbl {
       Errors.CreateList.InvalidDtoIn
     );
 
-    // Set visibility
+    // Nastavit viditelnost
     const visibility = authorizationResult.getAuthorizedProfiles().includes("Executives");
 
-    // Get uuIdentity information
+    // Získání uuIdentity
     const uuIdentity = session.getIdentity().getUuIdentity();
     const uuIdentityName = session.getIdentity().getName();
     const now = new Date();
     
-    // Save shopping list to uuObjectStore
+    // Uložit NS do uuObjectStore
     const uuObject = {
-      name: dtoIn.listName, // name of list set at creation
-      ownerId: uuIdentity, // id of the owner
-      awid: awid, //appWorkspaceId - unique code specified externally
-      archived: false, // use for sorting, in order to sort whitch lists are archived and whitch not
+      name: dtoIn.listName, // název seznamu
+      ownerId: uuIdentity, // id vlastníka
+      awid: awid, // appWorkspaceId - unikátní kód nastavený externě
+      archived: false, // značí, jestli je NS archivovaný či ne
       sys: {
-        cts: now, //create timestamp
-        mts: now, //modification timestamp
-        rev: 0, //revision number
+        cts: now, // timestamp vytvoření
+        mts: now, // timestamp modifikace
+        rev: 0, // revizní číslo
       },
       items: [
-        //...
+        // pole položek v NS
       ],
       authorizedUsers: [{ userID: uuIdentity }],
       awid,
@@ -127,7 +127,7 @@ class ShoppingListAbl {
     };
     const list = await this.dao.create(uuObject);
 
-    // Prepare and return dtoOut
+    // Připravit a vrátit dtoOut
     const dtoOut = { ...list, uuAppErrorMap };
     return dtoOut;
   }
@@ -135,7 +135,7 @@ class ShoppingListAbl {
   async deleteList(dtoIn, session) {
     let uuAppErrorMap = {};
 
-    // Validation of dtoIn
+    // Validace dtoIn
     const validationResult = this.validator.validate("shoppingListDeleteDtoInType", dtoIn);
     uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
@@ -153,16 +153,16 @@ class ShoppingListAbl {
       throw new Errors.DeleteList.ListDoesNotExist({ uuAppErrorMap });
     }
 
-    // Check if the user is authorized to view the list
+    // Kontrola, jestli je uživatel autorizovaný si NS zobrazit
     let isAuthorized = listCopy.ownerId === uuIdentity;
     if (!isAuthorized) {
-      // Add authorization error to uuAppErrorMap
+      // Přidání chyby autorizace do uuAppErrorMap
       throw new Errors.DeleteList.UserNotAuthorized({ uuAppErrorMap });
     }
 
     const list = await this.dao.delete(dtoIn.listId);
 
-    // Prepare and return dtoOut
+    // Připravit a vrátit dtoOut
     const dtoOut = { list, uuAppErrorMap };
     return dtoOut;
   }
@@ -170,7 +170,7 @@ class ShoppingListAbl {
   async updateListName(dtoIn, session) {
     let uuAppErrorMap = {};
 
-    // Validation of dtoIn
+    // Validace dtoIn
     const validationResult = this.validator.validate("shoppingListUpdateNameDtoInType", dtoIn);
     uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
@@ -180,23 +180,23 @@ class ShoppingListAbl {
       Errors.CreateList.InvalidDtoIn
     );
 
-    // Set visibility
+    // Nastavit viditelnost
     const uuIdentity = session.getIdentity().getUuIdentity();
 
     let list = await this.dao.get(dtoIn.listId);
 
-    // Check if the user is authorized to view the list
+    // Kontrola, jestli je uživatel autorizovaný si NS zobrazit
     let isAuthorized = list.ownerId === uuIdentity;
     if (!isAuthorized) {
-      // Add authorization error to uuAppErrorMap
+      // Přidání chyby autorizace do uuAppErrorMap
       throw new Errors.UpdateListName.UserNotAuthorized({ uuAppErrorMap });
     }
-    // Updating the list name
+    // Úprava názvu NS
     list.name = dtoIn.newName;
     const now = new Date();
-    list.sys.mts = now; // Update the modification timestamp
+    list.sys.mts = now; // Úprava timestamp modifikace
 
-    // Save the updated list back to the database
+    // Uložit NS zpět do databáze
     let updatedList = await this.dao.update(list);
 
     return { list: updatedList, uuAppErrorMap };
@@ -205,7 +205,7 @@ class ShoppingListAbl {
   async archiveList(dtoIn, session) {
     let uuAppErrorMap = {};
 
-    // Validation of dtoIn
+    // Validace dtoIn
     const validationResult = this.validator.validate("shoppingListArchiveDtoInType", dtoIn);
     uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
@@ -215,23 +215,23 @@ class ShoppingListAbl {
       Errors.ArchiveList.InvalidDtoIn
     );
 
-    // Set visibility
+    // Nastavit viditelnost
     const uuIdentity = session.getIdentity().getUuIdentity();
 
     let list = await this.dao.get(dtoIn.listId);
 
-    // Check if the user is authorized to view the list
+    // Kontrola, jestli je uživatel autorizovaný si NS zobrazit
     let isAuthorized = list.ownerId === uuIdentity;
     if (!isAuthorized) {
-      // Add authorization error to uuAppErrorMap
+      // Přidání chyby autorizace do uuAppErrorMap
       throw new Errors.ArchiveList.UserNotAuthorized({ uuAppErrorMap });
     }
-    // Updating the list name
+    // Úprava názvu NS
     list.archived = true;
     const now = new Date();
-    list.sys.mts = now; // Update the modification timestamp
+    list.sys.mts = now; // Úprava timestamp modifikace
 
-    // Save the updated list back to the database
+    // Uložit NS zpět do databáze
     let updatedList = await this.dao.update(list);
 
     return { list: updatedList, uuAppErrorMap };
@@ -240,7 +240,7 @@ class ShoppingListAbl {
   async createItem(dtoIn, session) {
     let uuAppErrorMap = {};
 
-    // Validation of dtoIn
+    // Validace dtoIn
     const validationResult = this.validator.validate("shoppingListItemCreateDtoInType", dtoIn);
     uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
@@ -250,15 +250,15 @@ class ShoppingListAbl {
       Errors.CreateItem.InvalidDtoIn
     );
 
-    // Set visibility
+    // Nastavit viditelnost
     const uuIdentity = session.getIdentity().getUuIdentity();
 
     let list = await this.dao.get(dtoIn.listId);
 
-    // Check if the user is authorized to view the list
+    // Kontrola, jestli je uživatel autorizovaný si NS zobrazit
     let isAuthorized = list.authorizedUsers.some((user) => user.userID === uuIdentity);
     if (!isAuthorized) {
-      // Add authorization error to uuAppErrorMap
+      // Přidání chyby autorizace do uuAppErrorMap
       throw new Errors.CreateItem.UserNotAuthorized({ uuAppErrorMap });
     }
     list.items.push({
@@ -267,7 +267,7 @@ class ShoppingListAbl {
       resolved: false,
     });
 
-    // Save the updated list back to the database
+    // Uložit NS zpět do databáze
     let updatedList = await this.dao.update(list);
 
     return { list: updatedList, uuAppErrorMap };
@@ -276,7 +276,7 @@ class ShoppingListAbl {
   async deleteItem(dtoIn, session) {
     let uuAppErrorMap = {};
 
-    // Validation of dtoIn
+    // Validace dtoIn
     const validationResult = this.validator.validate("shoppingListItemDeleteDtoInType", dtoIn);
     uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
@@ -286,15 +286,15 @@ class ShoppingListAbl {
       Errors.DeleteItem.InvalidDtoIn
     );
 
-    // Set visibility
+    // Nastavit viditelnost
     const uuIdentity = session.getIdentity().getUuIdentity();
 
     let list = await this.dao.get(dtoIn.listId);
 
-    // Check if the user is authorized to view the list
+    // Kontrola, jestli je uživatel autorizovaný si NS zobrazit
     let isAuthorized = list.authorizedUsers.some((user) => user.userID === uuIdentity);
     if (!isAuthorized) {
-      // Add authorization error to uuAppErrorMap
+      // Přidání chyby autorizace do uuAppErrorMap
       throw new Errors.DeleteItem.UserNotAuthorized({ uuAppErrorMap });
     }
 
@@ -307,7 +307,7 @@ class ShoppingListAbl {
   async resolveItem(dtoIn, session) {
     let uuAppErrorMap = {};
 
-    // Validation of dtoIn
+    // Validace dtoIn
     const validationResult = this.validator.validate("shoppingListItemResolveDtoInType", dtoIn);
     uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
@@ -321,19 +321,19 @@ class ShoppingListAbl {
 
     let list = await this.dao.get(dtoIn.listId);
 
-    // Check if the user is authorized to view the list
+    // Kontrola, jestli je uživatel autorizovaný si NS zobrazit
     let isAuthorized = list.authorizedUsers.some((user) => user.userID === uuIdentity);
     if (!isAuthorized) {
-      // Add authorization error to uuAppErrorMap
+      // Přidání chyby autorizace do uuAppErrorMap
       throw new Errors.ResolveItem.UserNotAuthorized({ uuAppErrorMap });
     }
 
-    // Find the item and mark it as resolved
+    // Najít položku a nastavit ji jako "vyřešenou"
     let item = list.items.find((item) => item.id === dtoIn.itemId);
     if (item) {
       item.resolved = true;
     } else {
-      // Handle the case where the item is not found
+      // Řešení, pokud položka není nalezena v NS
       throw new Errors.ResolveItem.ShoppingListDaoResolveItemFailed({ uuAppErrorMap });
     }
 
@@ -345,7 +345,7 @@ class ShoppingListAbl {
   async createAuthorizedUser(dtoIn, session) {
     let uuAppErrorMap = {};
 
-    // Validation of dtoIn
+    // Validace dtoIn
     const validationResult = this.validator.validate("authorizedUserCreateDtoInType", dtoIn);
     uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
@@ -359,13 +359,13 @@ class ShoppingListAbl {
 
     let list = await this.dao.get(dtoIn.listId);
 
-    // Check if the user is authorized to update the list
+    // Kontrola, jestli je uživatel autorizován na upravení NS
     let isOwner = list.ownerId === uuIdentity;
     if (!isOwner) {
       throw new Errors.CreateAuthorizedUser.UserNotAuthorized({ uuAppErrorMap });
     }
 
-    // Add the new authorized user
+    //Přidání nového uživatele
     list.authorizedUsers.push({ userID: dtoIn.userId });
 
     let updatedList = await this.dao.update(list);
@@ -376,7 +376,7 @@ class ShoppingListAbl {
   async deleteAuthorizedUser(dtoIn, session) {
     let uuAppErrorMap = {};
 
-    // Validation of dtoIn
+    // Validace dtoIn
     const validationResult = this.validator.validate("authorizedUserDeleteDtoInType", dtoIn);
     uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
@@ -390,22 +390,22 @@ class ShoppingListAbl {
 
     let list = await this.dao.get(dtoIn.listId);
 
-    // Check if the user is the owner of the list
+    // Kontrola, jestli je uživatel vlastníkem NS
     let isOwner = list.ownerId === uuIdentity;
-    // Check if the user is in the authorized users list
+    // Kontrola, jestli je autorizovaným uživatel v seznamu uživatelů
     let isAuthorizedUser = list.authorizedUsers.some((user) => user.userID === uuIdentity);
 
-    // User is neither owner nor authorized user
+    // Řešení, pokud uživatel není ani vlastníkem ani autorizovaným uživatelem
     if (!isOwner && !isAuthorizedUser) {
       throw new Errors.DeleteAuthorizedUser.UserNotAuthorized({ uuAppErrorMap });
     }
 
-    // User is an authorized user but not the owner, and tries to delete someone other than themselves
+    // Uživatel nemá práva a přesto se pokusí vymazat někoho jiného, než je on sám
     if (!isOwner && isAuthorizedUser && uuIdentity !== dtoIn.userId) {
       throw new Errors.DeleteAuthorizedUser.UserNotAuthorized({ uuAppErrorMap });
     }
 
-    // Remove the authorized user
+    // Odebrání člena NS
     list.authorizedUsers = list.authorizedUsers.filter((user) => user.userID !== dtoIn.userId);
 
     let updatedList = await this.dao.update(list);

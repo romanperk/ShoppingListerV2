@@ -1,39 +1,39 @@
 "use strict";
-const UnicornMainUseCaseError = require("./app-main-use-case-error.js");
+const AppMainUseCaseError = require("./app-main-use-case-error.js");
 
 const Init = {
-  UC_CODE: `${UnicornMainUseCaseError.ERROR_PREFIX}init/`,
+  UC_CODE: `${AppMainUseCaseError.ERROR_PREFIX}init/`,
 
-  InvalidDtoIn: class extends UnicornMainUseCaseError {
+  InvalidDtoIn: class extends AppMainUseCaseError {
     constructor() {
       super(...arguments);
       this.code = `${Init.UC_CODE}invalidDtoIn`;
-      this.message = "DtoIn is not valid.";
+      this.message = "DtoIn není validní.";
     }
   },
 
-  SchemaDaoCreateSchemaFailed: class extends UnicornMainUseCaseError {
+  SchemaDaoCreateSchemaFailed: class extends AppMainUseCaseError {
     constructor() {
       super(...arguments);
       this.status = 500;
       this.code = `${Init.UC_CODE}schemaDaoCreateSchemaFailed`;
-      this.message = "Create schema by Dao createSchema failed.";
+      this.message = "Vytvoření schématu podle Dao createSchema selhalo.";
     }
   },
 
-  SetProfileFailed: class extends UnicornMainUseCaseError {
+  SetProfileFailed: class extends AppMainUseCaseError {
     constructor() {
       super(...arguments);
       this.code = `${Init.UC_CODE}sys/setProfileFailed`;
-      this.message = "Set profile failed.";
+      this.message = "Nastavení profilu selhalo.";
     }
   },
 
-  CreateAwscFailed: class extends UnicornMainUseCaseError {
+  CreateAwscFailed: class extends AppMainUseCaseError {
     constructor() {
       super(...arguments);
       this.code = `${Init.UC_CODE}createAwscFailed`;
-      this.message = "Create uuAwsc failed.";
+      this.message = "Vytvoření uuAwsc selhalo.";
     }
   },
 };
