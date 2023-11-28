@@ -20,12 +20,7 @@ const ControlPanel = Utils.Component.lazy(() => import("../routes/control-panel.
 const ROUTE_MAP = {
   "": { redirect: "home" },
   home: (props) => <Home {...props} />,
-
-  // homework examples
-  shoppingListList: (props) => <ShoppingListList {...props} />,
   shoppingListDetail: (props) => <ShoppingListDetail {...props} />,
-
-  //
   about: (props) => <About {...props} />,
   "sys/uuAppWorkspace/initUve": (props) => <InitAppWorkspace {...props} />,
   controlPanel: (props) => <ControlPanel {...props} />,
@@ -69,7 +64,7 @@ const Spa = createVisualComponent({
         <Uu5Elements.ModalBus>
           <UserProvider>
             <ShoppingListListProvider>
-              <Plus4U5App.Spa routeMap={ROUTE_MAP} />
+                <Plus4U5App.Spa routeMap={ROUTE_MAP} />
             </ShoppingListListProvider>
           </UserProvider>
         </Uu5Elements.ModalBus>

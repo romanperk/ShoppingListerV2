@@ -1,9 +1,8 @@
 //@@viewOn:imports
-import { createComponent, useState, useMemo } from "uu5g05";
-
+import { createComponent, useMemo, useEffect, useState, useDataList } from "uu5g05";
+import Calls from "../../calls"
 import ShoppingListListContext from "./shopping-list-list-context";
 import { useUserContext } from "../user-list/user-context";
-
 import Config from "./config/config";
 //@@viewOff:imports
 
@@ -70,6 +69,23 @@ export const ShoppingListListProvider = createComponent({
 
   render(props) {
     //@@viewOn:private
+    const dataList = useDataList({
+      handlerMap: {
+        load: handleLoad,
+        loadNext: handleLoadNext,
+        create: handleCreateList,
+        deleteList: handleDeleteList,
+        archiveList: handleArchiveList,
+        updateName: handleUpdateListName,
+      },
+      itemHandlerMap: {
+        createItem: handleCreateItem,
+        deleteItem: handleDeleteItem,
+        resolveItem: handleResolveItem
+      },
+      pageSize: 3,
+    });
+
     const [shoppingListList, setShoppingListList] = useState(INITIAL_VALUE);
 
     const { loggedUser } = useUserContext();
@@ -88,6 +104,39 @@ export const ShoppingListListProvider = createComponent({
       handleToggleState: (dtoIn) => handleToggleState(dtoIn, setShoppingListList),
       handleDelete: (dtoIn) => handleDelete(dtoIn, setShoppingListList),
     };
+
+    //@@viewOnn:Calls
+    function handleLoad(dtoIn) {
+      return Calls.ShoppingList.list(dtoIn);
+    }
+    function handleLoadNext(dtoIn) {
+      return Calls.ShoppingList.list(dtoIn);
+    }
+    function handleCreateList(values) {
+      return Calls.ShoppingList.createList(values);
+    }
+    async function handleDeleteList(list) {
+      const dtoIn = { id: list.id };
+      return Calls.ShoppingList.delete(dtoIn, props.baseUri);
+    }
+    function handleUpdateListName(dtoIn) {
+      return Calls.ShoppingList.updateListName(dtoIn);
+    }
+    function handleArchiveList(dtoIn) {
+      return Calls.ShoppingList.archiveList(dtoIn);
+    }
+    function handleCreateItem(dtoIn) {
+      return Calls.ShoppingList.createItem(dtoIn);
+    }
+    async function handleDeleteItem(item) {
+      const dtoIn = { id: item.id };
+      return Calls.ShoppingList.delete(dtoIn, props.baseUri);
+    }
+    function handleResolveItem(dtoIn) {
+      return Calls.ShoppingList.resolveItem(dtoIn);
+    }
+    //@@viewOff:Calls
+    
     //@@viewOff:private
 
     //@@viewOn:render

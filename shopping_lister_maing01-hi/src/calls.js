@@ -39,6 +39,63 @@ const Calls = {
     return await Calls.getWorkspace();
   },
 
+  ShoppingList: {
+    list(dtoIn) {
+      const commandUri = Calls.getCommandUri("shoppingListSumm/list");
+      return Calls.call("get", commandUri, dtoIn);
+    },
+
+    getList(dtoIn) {
+      const commandUri = Calls.getCommandUri("shoppingListSumm/givenList/get");
+      return Calls.call("get", commandUri, dtoIn);
+    },
+
+    createList(dtoIn) {
+      const commandUri = Calls.getCommandUri("shoppingListSumm/givenList/createList");
+      return Calls.call("post", commandUri, dtoIn);
+    },
+
+    deleteList(dtoIn) {
+      const commandUri = Calls.getCommandUri("shoppingListSumm/givenList/delete");
+      return Calls.call("delete", commandUri, dtoIn);
+    },
+
+    updateListName(dtoIn) {
+      const commandUri = Calls.getCommandUri("shoppingListSumm/givenList/name/update");
+      return Calls.call("put", commandUri, dtoIn);
+    },
+
+    archiveList(dtoIn) {
+      const commandUri = Calls.getCommandUri("shoppingListSumm/givenList/archived/update");
+      return Calls.call("put", commandUri, dtoIn);
+    },
+
+    createItem(dtoIn) {
+      const commandUri = Calls.getCommandUri("shoppingListSumm/givenList/item/create");
+      return Calls.call("post", commandUri, dtoIn);
+    },
+
+    deleteItem(dtoIn) {
+      const commandUri = Calls.getCommandUri("shoppingListSumm/givenList/item/delete");
+      return Calls.call("delete", commandUri, dtoIn);
+    },
+
+    resolveItem(dtoIn) {
+      const commandUri = Calls.getCommandUri("shoppingListSumm/givenList/item/resolved/update");
+      return Calls.call("put", commandUri, dtoIn);
+    },
+
+    createAuthorizedUser(dtoIn) {
+      const commandUri = Calls.getCommandUri("shoppingListSumm/givenList/authorizedUsers/create");
+      return Calls.call("post", commandUri, dtoIn);
+    },
+
+    deleteAuthorizedUser(dtoIn) {
+      const commandUri = Calls.getCommandUri("shoppingListSumm/givenList/authorizedUsers/delete");
+      return Calls.call("delete", commandUri, dtoIn);
+    },
+  },
+
   getCommandUri(useCase, baseUri = Environment.appBaseUri) {
     return (!baseUri.endsWith("/") ? baseUri + "/" : baseUri) + (useCase.startsWith("/") ? useCase.slice(1) : useCase);
   },
