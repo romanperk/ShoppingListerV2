@@ -35,7 +35,6 @@ let Home = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const dataList = useDataList({ handlerMap: { load: Calls.ShoppingList.list } });
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -47,7 +46,7 @@ let Home = createVisualComponent({
       <div {...attrs}>
         <PositionBar />
         <div className={Config.Css.css({ padding: "16px 32px" })}>
-          <View dataList={dataList}/>
+          <View />
         </div>
       </div>
     );

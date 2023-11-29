@@ -1,0 +1,53 @@
+{
+    "list": [
+        {
+            "id": "cd8f0b48",
+            "name": "Kaufland",
+            "memberList": ["60639f0e", "8ef9a8e0"],
+            "itemList": [
+              { "id": "d1bce180", "name": "Cukr" },
+              { "id": "d1bce48c", "name": "Rohlíky (6)" },
+              { "id": "d1bce5d6", "name": "Mouka", "checked": true }
+            ],
+            "owner": "60639c3e"
+          },
+          {
+            "id": "f4adaae0",
+            "name": "Hornbach",
+            "memberList": ["6063a47c", "8ef9aa98"],
+            "itemList": [
+              { "id": "d1bce70c", "name": "Metr" },
+              { "id": "d1bce82e", "name": "Hřebíky" },
+              { "id": "d1bce946", "name": "Kladívko" }
+            ],
+            "owner": "60639c3e"
+          },
+          {
+            "id": "f4adae28",
+            "name": "Drogerie",
+            "memberList": ["6063a47c", "8ef9a304", "8ef9a700"],
+            "itemList": [
+              { "id": "d1bcee1e", "name": "Papírové kapesníčky" },
+              { "id": "d1bcef68", "name": "Toaletní papír" },
+              { "id": "d1bcf080", "name": "Deodorant" }
+            ],
+            "owner": "6063a5d0"
+          },
+          {
+            "id": "f4adb08a",
+            "name": "Papírnictví",
+            "memberList": ["ebd191c2"],
+            "itemList": [
+              { "id": "d1bcf198", "name": "Čtvrtka" },
+              { "id": "fb149276", "name": "Čterečkovaný sešit", "checked": true },
+              { "id": "fb1495d2", "name": "Linkovaný sešit", "checked": true },
+              { "id": "fb149c76", "name": "Obaly na sešity", "checked": true }
+            ],
+            "owner": "8ef9a8e0"
+          }
+        ],
+    "awid": "22222222222222222222222222222222",
+    "uuIdentity": "0-0",
+    "uuIdentityName": "Unknown",
+    "uuAppErrorMap": {}
+}

@@ -39,7 +39,7 @@ let View = createVisualComponent({
   defaultProps: {},
   //@@viewOff:defaultProps
 
-  render(props) {
+  render() {
     //@@viewOn:private
     const { loggedUser } = useUserContext();
     const { userShoppingList, handleCreate } = useShoppingListListContext();
@@ -61,7 +61,7 @@ let View = createVisualComponent({
 
     //@@viewOn:render
     return (
-      <Uu5Tiles.ControllerProvider data={props.dataList.data || []}>
+      <Uu5Tiles.ControllerProvider data={filteredShoppingItemList || []}>
         <Uu5Elements.Block
           header={"Přehled nákupních seznamů"}
           headerSeparator
@@ -81,11 +81,9 @@ let View = createVisualComponent({
               colorScheme: "grey",
               significance: "highlighted",
               onClick: () => setShowOpenedOnly((current) => !current),
-            },
-            { icon: "uugds-reload", onClick: props.dataList.handlerMap.load },
+            }
           ]}
           footer={<Uu5TilesControls.Counter />}
-          disabled={props.dataList.state.includes("pending")}
         >
           {isCreateModalOpened && (
             <Form.Provider
@@ -110,37 +108,9 @@ let View = createVisualComponent({
               </Modal>
             </Form.Provider>
           )}
-          {props.dataList.state === "pendingNoData" && <Uu5Elements.Skeleton width="100%" height="200px" />}
-          {(props.dataList.state === "pending" || props.dataList.state.includes("ready")) && (
-            <div className={Config.Css.css({ position: "relative" })}>
           <Uu5TilesElements.Grid tileMinWidth={300} tileMaxWidth={400}>
             {Tile}
           </Uu5TilesElements.Grid>
-          {props.dataList.state === "pending" && (
-                <div
-                  className={Config.Css.css({
-                    position: "absolute",
-                    top: "0",
-                    bottom: "0",
-                    right: "0",
-                    left: "0",
-                    opacity: "0.5",
-                    background: "grey",
-                    display: "flex",
-                    justifyContent: "center",
-                    alingItems: "center",
-                  })}
-                >
-                  <Uu5Elements.Pending />
-                </div>
-              )}
-            </div>
-          )}
-          {props.dataList.state.includes("error") && (
-            <Uu5Elements.HighlightedBox colorScheme="negative">
-              {props.dataList.errorData.toString()}
-            </Uu5Elements.HighlightedBox>
-          )}
         </Uu5Elements.Block>
       </Uu5Tiles.ControllerProvider>
     );

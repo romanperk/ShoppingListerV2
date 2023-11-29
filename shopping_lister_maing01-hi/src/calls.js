@@ -41,64 +41,39 @@ const Calls = {
 
   ShoppingList: {
     list(dtoIn) {
-      const commandUri = Calls.getCommandUri("shoppingListSumm/list");
+      const commandUri = Calls.getCommandUri("shoppingList/listList");
       return Calls.call("get", commandUri, dtoIn);
     },
 
-    getList(dtoIn) {
-      const commandUri = Calls.getCommandUri("shoppingListSumm/givenList/get");
-      return Calls.call("get", commandUri, dtoIn);
-    },
-
-    createList(dtoIn) {
-      const commandUri = Calls.getCommandUri("shoppingListSumm/givenList/createList");
+    listCreate(dtoIn) {
+      const commandUri = Calls.getCommandUri("shoppingList/listCreate");
       return Calls.call("post", commandUri, dtoIn);
     },
-
-    deleteList(dtoIn) {
-      const commandUri = Calls.getCommandUri("shoppingListSumm/givenList/delete");
-      return Calls.call("delete", commandUri, dtoIn);
-    },
-
-    updateListName(dtoIn) {
-      const commandUri = Calls.getCommandUri("shoppingListSumm/givenList/name/update");
-      return Calls.call("put", commandUri, dtoIn);
-    },
-
-    archiveList(dtoIn) {
-      const commandUri = Calls.getCommandUri("shoppingListSumm/givenList/archived/update");
-      return Calls.call("put", commandUri, dtoIn);
-    },
-
-    createItem(dtoIn) {
-      const commandUri = Calls.getCommandUri("shoppingListSumm/givenList/item/create");
+  
+    listUpdate(dtoIn) {
+      const commandUri = Calls.getCommandUri("shoppingList/listUpdate");
       return Calls.call("post", commandUri, dtoIn);
     },
-
-    deleteItem(dtoIn) {
-      const commandUri = Calls.getCommandUri("shoppingListSumm/givenList/item/delete");
-      return Calls.call("delete", commandUri, dtoIn);
-    },
-
-    resolveItem(dtoIn) {
-      const commandUri = Calls.getCommandUri("shoppingListSumm/givenList/item/resolved/update");
-      return Calls.call("put", commandUri, dtoIn);
-    },
-
-    createAuthorizedUser(dtoIn) {
-      const commandUri = Calls.getCommandUri("shoppingListSumm/givenList/authorizedUsers/create");
+  
+    listDelete(dtoIn) {
+      const commandUri = Calls.getCommandUri("shoppingList/listDelete");
       return Calls.call("post", commandUri, dtoIn);
     },
+  },
 
-    deleteAuthorizedUser(dtoIn) {
-      const commandUri = Calls.getCommandUri("shoppingListSumm/givenList/authorizedUsers/delete");
-      return Calls.call("delete", commandUri, dtoIn);
-    },
+  getShoppingList() {
+    const commandUri = Calls.getCommandUri("getShoppingList");
+    return Calls.call("get", commandUri);
+  },
+
+  getUserList() {
+    const commandUri = Calls.getCommandUri("getUserList");
+    return Calls.call("get", commandUri);
   },
 
   getCommandUri(useCase, baseUri = Environment.appBaseUri) {
     return (!baseUri.endsWith("/") ? baseUri + "/" : baseUri) + (useCase.startsWith("/") ? useCase.slice(1) : useCase);
-  },
+  }
 };
 
 export default Calls;
