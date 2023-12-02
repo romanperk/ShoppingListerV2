@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { Utils, createVisualComponent, useState, useRoute, useMemo } from "uu5g05";
+import { Utils, createVisualComponent, useState, useRoute, useMemo, BackgroundProvider, Lsi } from "uu5g05";
 import Uu5Elements, { Modal } from "uu5g05-elements";
 import { Form, FormText, SubmitButton } from "uu5g05-forms";
 
@@ -13,6 +13,7 @@ import Tile from "./tile.js";
 
 import { useUserContext } from "../user-list/user-context.js";
 import { useShoppingListListContext } from "./shopping-list-list-context.js";
+import { useThemeContext } from "../theme/theme-context.js";
 
 import Config from "./config/config.js";
 //@@viewOff:imports
@@ -46,6 +47,7 @@ let View = createVisualComponent({
     const [showOpenedOnly, setShowOpenedOnly] = useState(true);
     const [isCreateModalOpened, setIsCreateModalOpened] = useState();
     const [, setRoute] = useRoute();
+    const [isDark] = useThemeContext();
 
     const filteredShoppingItemList = useMemo(() => {
       if (showOpenedOnly) {
@@ -63,21 +65,25 @@ let View = createVisualComponent({
     return (
       <Uu5Tiles.ControllerProvider data={filteredShoppingItemList || []}>
         <Uu5Elements.Block
-          header={"Přehled nákupních seznamů"}
+          header={( <BackgroundProvider background={isDark ? "dark" : "light"}>
+                    <Uu5Elements.Text category="story" segment="heading" type="h4" colorScheme={"building"}> 
+                      <Lsi lsi={{ cs: "Přehled nákupních seznamů", en: "Shopping list summary"}}/> 
+                    </Uu5Elements.Text>
+                    </BackgroundProvider>)}
           headerSeparator
           headerType={"title"}
           actionList={[
             { component: <Uu5TilesControls.SearchButton /> },
             {
               icon: "uugds-plus",
-              children: "Vytvořit",
+              children: <Lsi lsi={{ cs: "Vytvořit", en: "Create"}}/> ,
               colorScheme: "positive",
               significance: "highlighted",
               onClick: () => setIsCreateModalOpened(true),
             },
             {
               icon: showOpenedOnly ? "uugds-lock-closed" : "uugds-lock-open",
-              children: showOpenedOnly ? "Zobrazit i archivované" : "Zobrazit pouze aktivní",
+              children: showOpenedOnly ? <Lsi lsi={{ cs: "Zobrazit i archivované", en: "Show with archived"}}/> : <Lsi lsi={{ cs: "Zobrazit pouze aktivní", en: "Show active only"}}/>,
               colorScheme: "grey",
               significance: "highlighted",
               onClick: () => setShowOpenedOnly((current) => !current),

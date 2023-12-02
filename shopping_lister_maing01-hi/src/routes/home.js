@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { Utils, createVisualComponent, useDataList } from "uu5g05";
+import { Utils, createVisualComponent } from "uu5g05";
 import { withRoute } from "uu_plus4u5g02-app";
 
 import PositionBar from "../core/position-bar.js";
@@ -7,14 +7,19 @@ import PositionBar from "../core/position-bar.js";
 import View from "../core/shopping-list-list/view.js";
 
 import Config from "./config/config.js";
-
-import Calls from "../calls.js";
+import { useThemeContext } from "../core/theme/theme-context.js";
 //@@viewOff:imports
 
 //@@viewOn:constants
 //@@viewOff:constants
 
 //@@viewOn:css
+const Css = {
+  main: () =>
+    Config.Css.css({
+      backgroundColor: "black"
+    }),
+};
 //@@viewOff:css
 
 //@@viewOn:helpers
@@ -35,6 +40,7 @@ let Home = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const [isDark] = useThemeContext();
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -42,12 +48,14 @@ let Home = createVisualComponent({
 
     //@@viewOn:render
     const attrs = Utils.VisualComponent.getAttrs(props);
-    return (
+    return ( 
+      <div className={isDark ? Css.main() : undefined}>
       <div {...attrs}>
         <PositionBar />
         <div className={Config.Css.css({ padding: "16px 32px" })}>
-          <View />
+          <View props={isDark} />
         </div>
+      </div>
       </div>
     );
     //@@viewOff:render

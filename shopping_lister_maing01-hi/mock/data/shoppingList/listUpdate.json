@@ -1,8 +1,14 @@
 {
-    "id": "5d80d1ba9",
-    "name": "New List",
-    "memberList": [],
-    "items": [],
-    "owner": "0-0",
+    "list": [
+        {"id": "m5cdg08a",
+        "name": "Updated shopping list",
+        "memberList": [],
+        "itemList": [],
+        "owner": "0-0"}
+    ],
+    "visibility": true,
+    "awid": "22222222222222222222222222222222",
+    "uuIdentity": "0-0",
+    "uuIdentityName": "Unknown",
     "uuAppErrorMap": {}
 }

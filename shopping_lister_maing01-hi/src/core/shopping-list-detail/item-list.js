@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, useRoute, useState } from "uu5g05";
+import { createVisualComponent, Utils, useRoute, useState, BackgroundProvider, Lsi } from "uu5g05";
 import { Block, Icon } from "uu5g05-elements";
 import { Checkbox } from "uu5g05-forms";
 
@@ -8,6 +8,7 @@ import Uu5TilesControls from "uu5tilesg02-controls";
 import Uu5TilesElements from "uu5tilesg02-elements";
 
 import TextInput from "./text-input.js";
+import { useThemeContext } from "../theme/theme-context.js";
 
 import Config from "../config/config.js";
 //@@viewOff:imports
@@ -18,7 +19,7 @@ import Config from "../config/config.js";
 const FILTER_LIST = [
   {
     key: "showChecked",
-    label: "Zobrazit i splněné",
+    label: <Lsi lsi={{ cs: "Zobrazit i splněné", en: "Show with checked"}}/>,
     filter: (item, value) => {
       if (value) return true;
       else return !item.checked;
@@ -43,6 +44,7 @@ const ItemList = createVisualComponent({
   render({ isOwner, shoppingListDetail, handleUpdate, handleToggleState, handleDelete }) {
     //@@viewOn:private
     const [filterList, setFilterList] = useState([]);
+    const [isDark] = useThemeContext();
 
     function onFilterChange(e) {
       setFilterList(e.data.filterList);
@@ -55,6 +57,7 @@ const ItemList = createVisualComponent({
 
     //@@viewOn:render
     return (
+      <BackgroundProvider background={isDark ? "dark" : "light"}>
       <Uu5Tiles.ControllerProvider
         data={itemListWithEmptyList || []}
         filterDefinitionList={FILTER_LIST}
@@ -78,13 +81,13 @@ const ItemList = createVisualComponent({
           actionList={[
             {
               icon: shoppingListDetail.archived ? "uugds-lock-open" : "uugds-lock-closed",
-              children: shoppingListDetail.archived ? "Aktivovat" : "Archivovat",
+              children: shoppingListDetail.archived ? <Lsi lsi={{ cs: "Aktivovat", en: "Set active"}}/> : <Lsi lsi={{ cs: "Archivovat", en: "Archive"}}/>,
               onClick: () => handleToggleState(shoppingListDetail),
               hidden: !isOwner,
             },
             {
               icon: "uugds-delete",
-              children: "Smazat",
+              children: <Lsi lsi={{ cs: "Smazat", en: "Delete"}}/>,
               colorScheme: "negative",
               onClick: () => {
                 handleDelete(shoppingListDetail);
@@ -180,6 +183,7 @@ const ItemList = createVisualComponent({
         /> */}
         </Block>
       </Uu5Tiles.ControllerProvider>
+      </BackgroundProvider>
     );
     //@@viewOff:render
   },

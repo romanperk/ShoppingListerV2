@@ -1,10 +1,13 @@
 {
-    "id": "5d80d1ba9e6aasc00d2cdf97",
-    "name": "Nový nákupní seznam",
-    "memberList": [],
-    "itemList": [],
-    "owner": "0-0",
+    "list": [
+        {"id": "m5cdg08a",
+        "name": "New shopping list",
+        "memberList": [],
+        "itemList": [],
+        "owner": "0-0"}
+    ],
     "visibility": true,
+    "awid": "22222222222222222222222222222222",
     "uuIdentity": "0-0",
     "uuIdentityName": "Unknown",
     "uuAppErrorMap": {}

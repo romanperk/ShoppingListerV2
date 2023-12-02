@@ -1,10 +1,11 @@
 //@@viewOn:imports
-import { createVisualComponent } from "uu5g05";
+import { createVisualComponent, BackgroundProvider, Lsi } from "uu5g05";
 import { Block, Button, Grid, Line } from "uu5g05-elements";
 import { TextSelect } from "uu5g05-forms";
 
 import User from "../../bricks/user.js";
 import { useUserContext } from "../user-list/user-context.js";
+import { useThemeContext } from "../theme/theme-context.js";
 
 import Config from "./config/config.js";
 //@@viewOff:imports
@@ -37,15 +38,17 @@ const MemberList = createVisualComponent({
     const { userList } = useUserContext();
     const owner = userList.find((item) => item.id === shoppingListDetail.owner);
     const isEditable = isOwner && !shoppingListDetail.archived;
+    const [isDark] = useThemeContext();
     //@@viewOff:private
 
     //@@viewOn:render
     return (
-      <Block card={"full"} header={"Seznam členů"} headerType={"title"} headerSeparator>
+      <BackgroundProvider background={isDark ? "dark" : "light"}>
+      <Block card={"full"} header={<Lsi lsi={{ cs: "Seznam členů", en: "List of users"}}/>} headerType={"title"} headerSeparator>
         <Grid rowGap={"8px"}>
           <div style={{ display: "flex", alignItems: "center" }}>
             <User img={owner.img} name={owner.name} />
-            <div style={{ fontStyle: "italic", color: "grey", marginLeft: "8px" }}>(vlastník)</div>
+            <div style={{ fontStyle: "italic", color: "grey", marginLeft: "8px" }}><Lsi lsi={{ cs: "vlastník", en: "owner"}}/></div>
             {loggedUser.id === owner.id && <div style={{ color: "blue", marginLeft: "8px" }}>*</div>}
           </div>
           <Line size={"s"} style={{ margin: "4px 0" }} significance={"subdued"} />
@@ -55,7 +58,7 @@ const MemberList = createVisualComponent({
               <Line size={"s"} style={{ margin: "4px 0" }} significance={"subdued"} />
 
               <TextSelect
-                label={"Nový člen"}
+                label={<Lsi lsi={{ cs: "Nový člen", en: "New user"}}/>}
                 itemList={getNewMemberItemList({ shoppingListDetail, userList, handleUpdate })}
                 onChange={(e) => {
                   handleAddMember({ userId: e.data.value, shoppingListDetail, handleUpdate });
@@ -65,6 +68,7 @@ const MemberList = createVisualComponent({
           )}
         </Grid>
       </Block>
+      </BackgroundProvider>
     );
     //@@viewOff:render
   },

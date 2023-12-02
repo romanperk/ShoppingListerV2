@@ -1,8 +1,10 @@
 //@@viewOn:imports
 import { createVisualComponent, Lsi, useRoute } from "uu5g05";
 import Plus4U5App from "uu_plus4u5g02-app";
+import { LanguageSelector } from "uu5g05-elements";
+import { useUserContext} from "./user-list/user-context.js";
+import { useThemeContext } from "./theme/theme-context.js";
 
-import { useUserContext} from "./user-list/user-context.js"
 import User from "../bricks/user.js";
 
 import Config from "./config/config.js";
@@ -35,10 +37,13 @@ const PositionBar = createVisualComponent({
     //@@viewOn:private
     const { userList, loggedUser, setLoggedUser } = useUserContext();
     const [, setRoute] = useRoute();
+    const [isDark, setIsDark] = useThemeContext();
+
 
     const actionList = [
+      { children: isDark ? <Lsi lsi={{ cs: "Světlý režim", en: "Light mode"}}/> : <Lsi lsi={{ cs: "Tmavý režim", en: "Dark mode"}}/>, onClick: setIsDark, collapsed: false },
+      { component: <LanguageSelector languageList={["cs", "en"]} />, collapsed: false },
       { children: <Lsi import={importLsi} path={["Menu", "home"]} />, onClick: () => setRoute("home") },
-      // homework routes
       {
         children: <User img={loggedUser.img} name={loggedUser.name} />,
         colorScheme: "primary",

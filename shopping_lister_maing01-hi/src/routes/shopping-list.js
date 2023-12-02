@@ -6,12 +6,19 @@ import Config from "./config/config.js";
 import PositionBar from "../core/position-bar.js";
 
 import View from "../core/shopping-list-detail/view.js";
+import { useThemeContext } from "../core/theme/theme-context.js";
 //@@viewOff:imports
 
 //@@viewOn:constants
 //@@viewOff:constants
 
 //@@viewOn:css
+const Css = {
+  main: () =>
+    Config.Css.css({
+      backgroundColor: "black"
+    }),
+};
 //@@viewOff:css
 
 //@@viewOn:helpers
@@ -32,6 +39,7 @@ let List = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const [isDark] = useThemeContext();
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -40,11 +48,13 @@ let List = createVisualComponent({
     //@@viewOn:render
     const attrs = Utils.VisualComponent.getAttrs(props);
     return (
+      <div className={isDark ? Css.main() : undefined}>
       <div {...attrs}>
         <PositionBar />
         <div className={Config.Css.css({ padding: "16px 32px" })}>
           <View />
         </div>
+      </div>
       </div>
     );
     //@@viewOff:render
