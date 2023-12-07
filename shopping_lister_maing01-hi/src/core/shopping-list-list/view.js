@@ -19,6 +19,12 @@ import Config from "./config/config.js";
 //@@viewOff:imports
 
 //@@viewOn:constants
+const Css = {
+  main: () =>
+    Config.Css.css({
+      height: "78.2vh"
+    }),
+  };
 //@@viewOff:constants
 
 //@@viewOn:css
@@ -63,6 +69,7 @@ let View = createVisualComponent({
 
     //@@viewOn:render
     return (
+      <div className={Css.main()}>
       <Uu5Tiles.ControllerProvider data={filteredShoppingItemList || []}>
         <Uu5Elements.Block
           header={( <BackgroundProvider background={isDark ? "dark" : "light"}>
@@ -119,6 +126,7 @@ let View = createVisualComponent({
           </Uu5TilesElements.Grid>
         </Uu5Elements.Block>
       </Uu5Tiles.ControllerProvider>
+      </div>
     );
     //@@viewOff:render
   },

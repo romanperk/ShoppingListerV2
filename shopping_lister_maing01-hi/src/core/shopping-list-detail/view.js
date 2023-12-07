@@ -16,6 +16,12 @@ import MemberList from "./member-list.js";
 //@@viewOff:constants
 
 //@@viewOn:css
+const Css = {
+  main: () =>
+    Config.Css.css({
+      height: "78.2vh"
+    }),
+  };
 //@@viewOff:css
 
 //@@viewOn:helpers
@@ -34,7 +40,7 @@ const View = createVisualComponent({
   defaultProps: { data: {} },
   //@@viewOff:defaultProps
 
-  render(props) {
+  render() {
     //@@viewOn:private
     const [screenSize] = useScreenSize();
     const [route] = useRoute();
@@ -55,7 +61,7 @@ const View = createVisualComponent({
 
     //@@viewOn:render
     return (
-      <>
+      <div className={Css.main()}>
         {!shoppingListDetail && (
           <PlaceholderBox code={"forbidden"} header={"Nákupní seznam s uvedeným ID neexistuje"} />
         )}
@@ -77,7 +83,7 @@ const View = createVisualComponent({
             <MemberList {...{ loggedUser, isOwner, shoppingListDetail, handleUpdate }} />
           </Grid>
         )}
-      </>
+      </div>
     );
     //@@viewOff:render
   },
