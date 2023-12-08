@@ -19,7 +19,7 @@ import MemberList from "./member-list.js";
 const Css = {
   main: () =>
     Config.Css.css({
-      height: "78.2vh"
+      height: "80vh"
     }),
   };
 //@@viewOff:css
