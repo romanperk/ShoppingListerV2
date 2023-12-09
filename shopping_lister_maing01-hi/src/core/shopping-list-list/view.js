@@ -19,12 +19,6 @@ import Config from "./config/config.js";
 //@@viewOff:imports
 
 //@@viewOn:constants
-const Css = {
-  main: () =>
-    Config.Css.css({
-      height: "80vh"
-    }),
-  };
 //@@viewOff:constants
 
 //@@viewOn:css
