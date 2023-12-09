@@ -8,7 +8,8 @@ import { useUserContext } from "../user-list/user-context.js";
 import ItemList from "./item-list.js";
 
 import Config from "./config/config.js";
-import MemberList from "./member-list.js";
+import MemberList from "./member-list.js"; 
+import Chart from "./chart.js";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -16,6 +17,12 @@ import MemberList from "./member-list.js";
 //@@viewOff:constants
 
 //@@viewOn:css
+const Css = {
+  main: () =>
+    Config.Css.css({
+      height: "110vh"
+    }),
+  };
 //@@viewOff:css
 
 //@@viewOn:helpers
@@ -34,7 +41,7 @@ const View = createVisualComponent({
   defaultProps: { data: {} },
   //@@viewOff:defaultProps
 
-  render(props) {
+  render() {
     //@@viewOn:private
     const [screenSize] = useScreenSize();
     const [route] = useRoute();
@@ -55,7 +62,7 @@ const View = createVisualComponent({
 
     //@@viewOn:render
     return (
-      <>
+      <div className={Css.main()}>
         {!shoppingListDetail && (
           <PlaceholderBox code={"forbidden"} header={"Nákupní seznam s uvedeným ID neexistuje"} />
         )}
@@ -63,7 +70,7 @@ const View = createVisualComponent({
           <PlaceholderBox code={"permission"} header={"Nejste členem zadaného nákupního seznamu"} />
         )}
         {shoppingListDetail && isMember && (
-          <Grid templateColumns={["xs", "s"].includes(screenSize) ? "100%" : "60% 40%"}>
+          <Grid alignItems={"start"} templateColumns={["xs", "s"].includes(screenSize) ? "100%" : "50% 40%"} rowGap={"30px"} columnGap={"50px"}>
             <ItemList
               {...{
                 loggedUser,
@@ -74,10 +81,11 @@ const View = createVisualComponent({
                 handleDelete,
               }}
             />
+            <Chart {...{shoppingListDetail}}/>
             <MemberList {...{ loggedUser, isOwner, shoppingListDetail, handleUpdate }} />
           </Grid>
         )}
-      </>
+      </div>
     );
     //@@viewOff:render
   },

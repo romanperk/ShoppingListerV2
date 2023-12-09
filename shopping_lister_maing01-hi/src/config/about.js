@@ -5,41 +5,23 @@ import importLsi from "../lsi/import-lsi.js";
 const About = {
   about: <Lsi import={importLsi} path={["AboutContent", "content"]} />,
   license: {
-    termsOfUse: "https://unicorn.com/tou/your_product",
     organisation: {
       name: "Unicorn a.s.",
       uri: "https://www.unicorn.com/",
     },
     authorities: [
       {
-        name: "Name Surname",
-        uri: "https://www.unicorn.com/",
+        name: "Roman Perk",
+        uri: "https://github.com/romanperk",
       },
     ],
   },
   leadingAuthors: [
     {
-      name: "Some Name",
-      uuIdentity: "4-4-1",
-      role: "Chief Business Architect & Stakeholder",
-    },
-    {
-      name: "Other Name",
-      uuIdentity: "4-4-1",
-      role: "Head of Development",
-    },
-  ],
-  otherAuthors: [
-    {
-      name: "Your Name",
-      uuIdentity: "4-4-1",
+      name: "Roman Perk",
+      uuIdentity: "1284-7058-1",
       role: "Developer",
-    },
-    {
-      name: "More Names",
-      uuIdentity: "4-4-1",
-      role: "Developer",
-    },
+    }
   ],
   usedTechnologies: {
     technologies: [

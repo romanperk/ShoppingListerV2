@@ -41,9 +41,9 @@ const PositionBar = createVisualComponent({
 
 
     const actionList = [
-      { children: isDark ? <Lsi lsi={{ cs: "Světlý režim", en: "Light mode"}}/> : <Lsi lsi={{ cs: "Tmavý režim", en: "Dark mode"}}/>, onClick: setIsDark, collapsed: false },
-      { component: <LanguageSelector languageList={["cs", "en"]} />, collapsed: false },
-      { children: <Lsi import={importLsi} path={["Menu", "home"]} />, onClick: () => setRoute("home") },
+      { children: isDark ? <Lsi lsi={{ cs: "Světlý režim", en: "Light mode"}}/> : <Lsi lsi={{ cs: "Tmavý režim", en: "Dark mode"}}/>, onClick: setIsDark },
+      { component: <LanguageSelector languageList={["cs", "en"]} /> },
+      { children: <Lsi import={importLsi} path={["Menu", "home"]} />, onClick: () => setRoute("home")},
       {
         children: <User img={loggedUser.img} name={loggedUser.name} />,
         colorScheme: "primary",

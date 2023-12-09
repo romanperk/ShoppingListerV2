@@ -100,7 +100,6 @@ const ItemList = createVisualComponent({
           ]}
           headerSeparator={true}
           contentMaxHeight={"60vh"}
-          footer={<Uu5TilesControls.Counter />}
         >
           <Uu5TilesControls.FilterBar initialExpanded={false} />
           <Uu5TilesControls.SorterBar initialExpanded={false} />
@@ -142,7 +141,7 @@ const ItemList = createVisualComponent({
                 cell: (data) => {
                   return (
                     <TextInput
-                      style={{ width: "100%" }}
+                      style={{ width: "50%" }}
                       value={data.data.name}
                       onChange={(value) => {
                         handleUpdateItem({ value, data, shoppingListDetail, handleUpdate });
@@ -156,31 +155,6 @@ const ItemList = createVisualComponent({
               { type: "actionList" },
             ]}
           />
-
-          {/* <ItemList
-          data={uncheckedItemList}
-          onCheck={handleCheckItem}
-          onNameChange={handleChangeName}
-          onDelete={handleDelete}
-        />
-        {checkedItemList.length ? (
-          <Uu5Elements.LinkPanel
-            header="Show checked"
-            open={checkedOpen}
-            onChange={() => setCheckedOpen(!checkedOpen)}
-            className={Css.panel()}
-          >
-            <ItemList data={checkedItemList} onCheck={handleCheckItem} onNameChange={handleChangeName} />
-          </Uu5Elements.LinkPanel>
-        ) : null}
-
-        <MemberManager
-          open={modalOpen}
-          onClose={() => setModalOpen(false)}
-          data={memberList}
-          onChange={setMemberList}
-          isOwner={isOwner}
-        /> */}
         </Block>
       </Uu5Tiles.ControllerProvider>
       </BackgroundProvider>

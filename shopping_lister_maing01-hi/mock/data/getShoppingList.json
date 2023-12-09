@@ -16,8 +16,8 @@
             "name": "Hornbach",
             "memberList": ["6063a47c", "8ef9aa98"],
             "itemList": [
-              { "id": "d1bce70c", "name": "Metr" },
-              { "id": "d1bce82e", "name": "Hřebíky" },
+              { "id": "d1bce70c", "name": "Metr", "checked": true },
+              { "id": "d1bce82e", "name": "Hřebíky", "checked": true },
               { "id": "d1bce946", "name": "Kladívko" }
             ],
             "owner": "60639c3e"

@@ -6,6 +6,7 @@
             "memberList": ["60639f0e", "8ef9a8e0"],
             "itemList": [
               { "id": "d1bce180", "name": "Cukr" },
+              { "id": "d1bce580", "name": "Houska" },
               { "id": "d1bce48c", "name": "Rohlíky (6)" },
               { "id": "d1bce5d6", "name": "Mouka", "checked": true }
             ],
@@ -17,8 +18,11 @@
             "memberList": ["6063a47c", "8ef9aa98"],
             "itemList": [
               { "id": "d1bce70c", "name": "Metr" },
-              { "id": "d1bce82e", "name": "Hřebíky" },
-              { "id": "d1bce946", "name": "Kladívko" }
+              { "id": "7f9e2d14", "name": "Šroubovák" },
+              { "id": "3c6a8b92", "name": "Kladivo s odpružením" },
+              { "id": "b1d4e8c7", "name": "Klíčový nástroj na nastavitelnou matku" },
+              { "id": "d1bce82e", "name": "Hřebíky", "checked": true },
+              { "id": "d1bce946", "name": "Kladívko", "checked": true }
             ],
             "owner": "60639c3e"
           },

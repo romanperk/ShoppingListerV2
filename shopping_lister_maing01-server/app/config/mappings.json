@@ -48,7 +48,7 @@
       },
       "shoppingListSumm/givenList/name/update": {
         "realization": "api/controllers/ShoppingListController.updateListName",
-        "httpMethod": "PUT",
+        "httpMethod": "POST",
         "type": "CMD"
       },
       "shoppingListSumm/givenList/archived/update": {
