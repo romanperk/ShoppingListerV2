@@ -20,7 +20,7 @@ import Chart from "./chart.js";
 const Css = {
   main: () =>
     Config.Css.css({
-      height: "110vh"
+      marginBottom: "10px"
     }),
   };
 //@@viewOff:css
@@ -62,7 +62,7 @@ const View = createVisualComponent({
 
     //@@viewOn:render
     return (
-      <div className={Css.main()}>
+      <div>
         {!shoppingListDetail && (
           <PlaceholderBox code={"forbidden"} header={"Nákupní seznam s uvedeným ID neexistuje"} />
         )}

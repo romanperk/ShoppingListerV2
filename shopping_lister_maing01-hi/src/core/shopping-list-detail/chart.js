@@ -49,7 +49,6 @@ const Chart = createVisualComponent({
     { name: <Lsi lsi={{ cs: "Splněné", en: "Checked"}}/>, amount: transformedArray.checkedCount },
     { name: <Lsi lsi={{ cs: "Nesplněné", en: "Unchecked"}}/>, amount: transformedArray.uncheckedCount },
   ];
-  console.log(finalArray)
     //@@viewOff:private
 
     //@@viewOn:render

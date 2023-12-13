@@ -108,7 +108,7 @@ let View = createVisualComponent({
               }}
             >
               <Modal
-                header={"Vytvořit nákupní seznam"}
+                header={ <Lsi lsi={{ cs: "Vytvořit nákupní seznam", en: "Create shopping list"}}/> }
                 open={true}
                 onClose={() => setIsCreateModalOpened(false)}
                 footer={
@@ -117,7 +117,7 @@ let View = createVisualComponent({
                   </div>
                 }
               >
-                <FormText label={"Název"} name={"name"} required />
+                <FormText label={<Lsi lsi={{ cs: "Název", en: "Name"}}/>} name={"name"} required />
               </Modal>
             </Form.Provider>
           )}
